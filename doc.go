@@ -2,9 +2,7 @@
 // Use of this source code is governed by a MIT
 // license that can be found in the LICENSE file.
 
-// validation 数据验证。
-//  v := validation.New()
-//  v.Apply(validator.IsNumber("123", "必须为数值", "num"))
+// 一些常用的验证函数
 package validation
 
-const Version = "0.1.4.140930"
+const Version = "0.1.0.140928"

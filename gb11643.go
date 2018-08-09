@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT
 // license that can be found in the LICENSE file.
 
-package validator
+package validation
 
 // 我国现行的身份证号码有两种标准：GB11643-1989、GB11643-1999：
 //
