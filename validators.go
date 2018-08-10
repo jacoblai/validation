@@ -4,10 +4,6 @@
 
 package validation
 
-import (
-	"github.com/caixw/lib.go/assert"
-)
-
 // 判断一个[]byte变量是否可以转换成数值。
 func IsNumberBytes(bs []byte) bool {
 	// 首位字符可以是[0-9.+-]
@@ -45,16 +41,4 @@ func IsNumber(val interface{}) bool {
 	default:
 		return false
 	}
-}
-
-// 判断是否为空值。
-// 具体参照githbu.com/caixw/lib.go/assert.IsEmtpy()
-func IsEmpty(val interface{}) bool {
-	return assert.IsEmpty(val)
-}
-
-// 判断是否为Nil。
-// 具体参照githbu.com/caixw/lib.go/assert.IsNil()
-func IsNil(val interface{}) bool {
-	return assert.IsNil(val)
 }
