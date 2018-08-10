@@ -59,6 +59,26 @@ func TestIsURL(t *testing.T) {
 	a.False(IsURL("https://~.example.com/path/index.go?arg1=val1"))
 }
 
+func TestIsDomain(t *testing.T) {
+	a := assert.New(t)
+
+	a.True(IsDomain("http://www.example.com"))
+	a.True(IsDomain("https://www.aaa.com"))
+	a.False(IsDomain("http://www.example.com/path/?a=b"))
+	a.False(IsDomain("https://www.example.com:88/path"))
+	a.False(IsDomain("ftp://pwd:user@www.example.com/index.go?a=b"))
+	a.False(IsDomain("pwd:user@www.example.com/path/"))
+	a.False(IsDomain("pwd:user@www.example.com:80/path/"))
+	a.False(IsDomain("https://127.0.0.1/path/"))
+	a.False(IsDomain("https://fe80:0:0:0:204:61ff:fe9d:f156/path/"))
+	a.False(IsDomain("https://127.0.0.1/path//index.go?arg1=val1"))
+	a.False(IsDomain("https://::1/path/index.go?arg1=val1"))
+
+	a.False(IsDomain("https://[::1]:80/path/"))
+	a.False(IsDomain("https://298.1.1.1/path/index.go?arg1=val1"))
+	a.False(IsDomain("https://~.example.com/path/index.go?arg1=val1"))
+}
+
 func TestIsIP(t *testing.T) {
 	a := assert.New(t)
 

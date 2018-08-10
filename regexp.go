@@ -40,7 +40,7 @@ const (
 		`(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|` +
 		`(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))`
 
-		// 同时匹配IP4和IP6
+	// 同时匹配IP4和IP6
 	ipStr = "(" + ip4Str + ")|(" + ip6Str + ")"
 
 	// 匹配域名
@@ -53,6 +53,11 @@ const (
 		`(:\d{1,4})?` + // 端口
 		`(/+[a-zA-Z0-9][a-zA-Z0-9_.-]*/*)*` + // path
 		`(\?([a-zA-Z0-9_-]+(=[a-zA-Z0-9_-]*)*)*)*` // query
+
+	// 匹配URL
+	urldmStr = `((https|http)?://)?` + // 协议
+		"(" + ipStr + "|(" + domainStr + "))" + // IP或域名
+		`(:\d{1,4})?` // 端口
 )
 
 func regexpCompile(str string) *regexp.Regexp {
@@ -65,6 +70,7 @@ var (
 	ip6      = regexpCompile(ip6Str)
 	ip       = regexpCompile(ipStr)
 	url      = regexpCompile(urlStr)
+	urldm    = regexpCompile(urldmStr)
 	cnPhone  = regexpCompile(cnPhoneStr)
 	cnMobile = regexpCompile(cnMobileStr)
 )
@@ -100,6 +106,10 @@ func IsCnMobile(val interface{}) bool {
 // 验证一个值是否标准的URL格式。支持IP和域名等格式
 func IsURL(val interface{}) bool {
 	return isMatch(url, val)
+}
+
+func IsDomain(val interface{}) bool {
+	return isMatch(urldm, val)
 }
 
 // 验证一个值是否为IP，可验证IP4和IP6
